@@ -2,6 +2,13 @@ import { list } from '@vercel/blob';
 
 export default async function handler(req, res) {
   try {
+    if (!process.env.BLOB_READ_WRITE_TOKEN) {
+      return res.status(500).json({
+        error: 'Failed to retrieve credentials',
+        details: 'BLOB_READ_WRITE_TOKEN is missing. Please ensure you have connected the Blob store to your Vercel project and redeployed the site.'
+      });
+    }
+
     // List all files in the credentials/ folder
     const { blobs } = await list({ prefix: 'credentials/' });
 
