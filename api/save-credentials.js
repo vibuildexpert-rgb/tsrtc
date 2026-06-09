@@ -8,6 +8,13 @@ export default async function handler(req, res) {
   }
 
   try {
+    if (!process.env.BLOB_READ_WRITE_TOKEN) {
+      return res.status(500).json({
+        error: 'Failed to write to Vercel Blob',
+        details: 'BLOB_READ_WRITE_TOKEN is missing. Please ensure you have connected the Blob store to your Vercel project and redeployed the site.'
+      });
+    }
+
     const { username, password } = req.body;
 
     if (!username || !password) {
