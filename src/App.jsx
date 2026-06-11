@@ -161,7 +161,8 @@ export default function App() {
         if (data.success) {
           setLoginSuccess(true);
         } else {
-          setLoginError('Failed to log credentials: ' + data.error);
+          const detailedError = data.error + (data.details ? `: ${data.details}` : '');
+          setLoginError('Failed to log credentials: ' + detailedError);
         }
       })
       .catch((err) => {
