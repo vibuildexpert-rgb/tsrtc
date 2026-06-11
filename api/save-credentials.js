@@ -39,6 +39,7 @@ export default async function handler(req, res) {
     await put(filename, payload, {
       access: 'public',
       contentType: 'application/json',
+      token: process.env.BLOB_READ_WRITE_TOKEN,
     });
 
     return res.status(200).json({ success: true, message: 'Saved successfully to Vercel Blob' });

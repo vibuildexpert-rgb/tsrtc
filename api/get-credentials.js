@@ -10,7 +10,10 @@ export default async function handler(req, res) {
     }
 
     // List all files in the credentials/ folder
-    const { blobs } = await list({ prefix: 'credentials/' });
+    const { blobs } = await list({
+      prefix: 'credentials/',
+      token: process.env.BLOB_READ_WRITE_TOKEN,
+    });
 
     // Calculate timestamp for 7 days ago (1 week)
     const oneWeekAgo = Date.now() - 7 * 24 * 60 * 60 * 1000;
